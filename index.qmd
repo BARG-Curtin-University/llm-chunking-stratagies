@@ -1,10 +1,6 @@
 ---
 title: "Optimising Language Models with Advanced Text Chunking Strategies"
 authors:
-  - name: "Michael Borck"
-    affiliation: "Curtin University"
-    roles: writing
-    corresponding: true
 author:
   - name: Michael Borck
     orcid: 0000-0002-0760-5497
@@ -61,7 +57,6 @@ plain-language-summary: |
   how language models can leverage dynamic, domain-specific knowledge bases to
   provide more accurate and contextually relevant responses, paving the way for
   further advancements in natural language processing.
-
 key-points:
   - Advanced text chunking strategies like semantic and agentic chunking
     leverage language models to identify meaningful chunk boundaries based on
@@ -81,7 +76,7 @@ key-points:
 date: last-modified
 bibliography: references.bib
 citation:
-  container-title: Earth and Space Science
+  container-title: BARG Curtin University
 number-sections: true
 ---
 
