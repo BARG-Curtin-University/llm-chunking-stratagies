@@ -1,0 +1,571 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Archiving
+and Interchange DTD v1.2 20190208//EN" "JATS-archivearticle1.dtd">
+<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" dtd-version="1.2" article-type="other">
+  <front>
+    <journal-meta>
+      <journal-id/>
+      <journal-title-group>
+        <journal-title>Earth and Space Science</journal-title>
+      </journal-title-group>
+      <issn/>
+      <publisher>
+        <publisher-name/>
+      </publisher>
+    </journal-meta>
+    <article-meta>
+      <title-group>
+        <article-title>Optimising Language Models with Advanced Text Chunking
+Strategies</article-title>
+      </title-group>
+      <contrib-group>
+        <contrib contrib-type="author" corresp="yes">
+          <name>
+            <surname>Borck</surname>
+            <given-names>Michael</given-names>
+          </name>
+          <string-name>Michael Borck</string-name>
+          <role vocab="https://credit.niso.org" vocab-term="writing – original draft" vocab-term-identifier="https://credit.niso.org/contributor-roles/writing-original-draft/">writing</role>
+          <xref ref-type="aff" rid="aff-1">a</xref>
+          <xref ref-type="corresp" rid="cor-1">*</xref>
+        </contrib>
+      </contrib-group>
+      <aff id="aff-1">
+        <institution-wrap>
+          <institution>Curtin University</institution>
+        </institution-wrap>
+      </aff>
+      <author-notes>
+        <corresp id="cor-1"/>
+      </author-notes>
+      <pub-date date-type="pub" publication-format="electronic" iso-8601-date="2024-04-24">
+        <year>2024</year>
+        <month>4</month>
+        <day>24</day>
+      </pub-date>
+      <history/>
+      <abstract>
+        <p>This white paper explores advanced text chunking strategies and text
+embeddings to optimise the performance and accuracy of language models,
+particularly for retrieval-augmented generation (RAG) applications. It
+examines various chunking techniques from basic character splitting to
+advanced semantic and agentic methods that leverage language models to
+identify meaningful chunk boundaries based on content understanding. The
+paper provides an in-depth analysis of the RAG framework, enabling
+language models to search external, dynamic knowledge bases and
+incorporate relevant information into responses. Emphasis is placed on
+the subdocument RAG technique, which summarises entire documents,
+attaches summaries as metadata to chunk embeddings, and employs
+hierarchical retrieval searching summaries first for improved efficiency
+and contextual relevance. By combining these techniques, the paper
+demonstrates how language models can leverage dynamic knowledge bases to
+provide accurate, contextually relevant responses, paving the way for
+further advancements like multimodal embeddings, unsupervised chunking,
+adaptive chunking, incremental knowledge updates, explainable retrieval,
+and knowledge graph integration.</p>
+      </abstract>
+      <kwd-group kwd-group-type="author">
+        <kwd>Text Chunking Strategies</kwd>
+        <kwd>Text Embeddings 1</kwd>
+        <kwd>Retrieval-Augmented Generation (RAG)</kwd>
+        <kwd>Language Model Optimisation</kwd>
+        <kwd>Semantic Chunking</kwd>
+        <kwd>Subdocument Chunking</kwd>
+      </kwd-group>
+    </article-meta>
+  </front>
+  <body>
+    <sec id="introduction">
+      <title>1 Introduction</title>
+      <p>As natural language processing (NLP) continues to evolve,
+  optimising language model performance has become paramount. However,
+  the sheer volume and complexity of textual data often hinder model
+  performance. Text chunking strategies and text embeddings have emerged
+  as crucial components to address these challenges.</p>
+    </sec>
+    <sec id="contributions-and-significance">
+      <title>2 Contributions and Significance</title>
+      <p>This research makes several notable contributions to the field of
+  natural language processing and language model optimisation:</p>
+      <list list-type="order">
+        <list-item>
+          <p><bold>Democratising Language AI with Small LLMs</bold>: By
+      focusing on optimising retrieval-augmented generation (RAG) and
+      text embedding strategies for smaller, quantised open-source
+      language models (around 4GB in size), this work aims to
+      democratise language AI and make it more accessible to a broader
+      range of users with limited computational resources or budgets.
+      This approach aligns with the growing trend of developing
+      efficient and environmentally-friendly AI solutions, reducing the
+      carbon footprint and energy consumption associated with
+      large-scale language models.</p>
+        </list-item>
+        <list-item>
+          <p><bold>Practical Applications and Accessibility</bold>: Many
+      real-world applications, such as chatbots, virtual assistants, and
+      domain-specific language models, may not require the full
+      capabilities of large LLMs. By optimising smaller models, this
+      research enables practical and cost-effective solutions for a wide
+      range of use cases, fostering innovation and inclusivity in
+      language AI.</p>
+        </list-item>
+        <list-item>
+          <p><bold>Exploration of Novel Techniques</bold>: The constraints
+      imposed by working with smaller LLMs can drive innovation and
+      potentially uncover novel techniques or insights that could be
+      applied to larger models or inspire new research directions in the
+      field of language AI.</p>
+        </list-item>
+        <list-item>
+          <p><bold>Reproducibility and Collaboration</bold>: The use of
+      open-source models and quantisation techniques promotes
+      reproducibility and collaboration within the research community,
+      enabling others to build upon this work and contribute to the
+      collective advancement of language AI.</p>
+        </list-item>
+        <list-item>
+          <p><bold>Efficient and Sustainable AI</bold>: Smaller LLMs have
+      lower computational requirements, reducing the energy consumption
+      and carbon footprint associated with training and deploying
+      language models. This research contributes to the development of
+      more efficient and sustainable AI solutions, aligning with the
+      growing emphasis on environmental responsibility in the tech
+      industry.</p>
+        </list-item>
+      </list>
+      <p>By focusing on optimising RAG and embedding strategies for smaller
+  LLMs, this research not only expands the accessibility and practical
+  applications of language AI but also aligns with the broader goals of
+  developing efficient, sustainable, and inclusive AI solutions. The
+  insights and techniques derived from this work have the potential to
+  inspire further advancements in the field of natural language
+  processing.</p>
+    </sec>
+    <sec id="retrieval-augmented-generation-rag">
+      <title>3 Retrieval-Augmented Generation (RAG)</title>
+      <p>RAG is a technique that improves the accuracy of generative models
+  by enabling them to search through external data and fact-check before
+  answering questions.</p>
+      <sec id="rag-components">
+        <title>3.1 RAG Components</title>
+        <list list-type="order">
+          <list-item>
+            <p><bold>Retriever</bold>: Searches the knowledge base for
+        relevant information using text embeddings to respond accurately
+        to user queries.</p>
+          </list-item>
+          <list-item>
+            <p><bold>Knowledge Base</bold>: A mutable, domain-specific
+        knowledge base that can be updated with new information
+        dynamically, overcoming the static knowledge limitation of
+        traditionally trained LLMs.</p>
+          </list-item>
+        </list>
+      </sec>
+      <sec id="rag-implementation">
+        <title>3.2 RAG Implementation</title>
+        <list list-type="order">
+          <list-item>
+            <p><bold>Preprocessing</bold>: The RAG module preprocesses user
+        queries by fetching relevant information from the knowledge
+        base, enhancing the context before the query is processed by the
+        LLM.</p>
+          </list-item>
+          <list-item>
+            <p><bold>Chunking and Embedding</bold>: The process involves
+        loading documents, creating embeddings, and chunking content
+        using advanced techniques like semantic or agentic chunking to
+        ensure only the most relevant and contextually appropriate
+        information is passed to the LLM.</p>
+          </list-item>
+          <list-item>
+            <p><bold>Tools and Libraries</bold>: Implementations often
+        utilise Python libraries like Hugging Face for embeddings and
+        indexing, as well as tools like LlamaIndex to automate chunking
+        and summary attachment.</p>
+          </list-item>
+        </list>
+        <p>By combining advanced text chunking strategies, text embeddings,
+    and RAG systems, language models can provide more accurate and
+    relevant responses, particularly in specialised or technical domains
+    where static knowledge may be insufficient.</p>
+      </sec>
+    </sec>
+    <sec id="text-embeddings">
+      <title>4 Text Embeddings</title>
+      <p>Text embeddings are numerical representations of text that capture
+  semantic meanings, facilitating computational processing and analysis
+  of textual data. They enable practical applications like:</p>
+      <list list-type="order">
+        <list-item>
+          <p><bold>Text Classification</bold>: Training machine learning
+      models on embedded text data to identify roles from job
+      descriptions or detect fraudulent activities.</p>
+        </list-item>
+        <list-item>
+          <p><bold>Semantic Search</bold>: Understanding the contextual
+      meaning behind queries, unlike keyword search, which merely looks
+      for exact word matches.</p>
+        </list-item>
+      </list>
+      <p>Text embeddings overcome the challenge of performing mathematical
+  operations directly on text by mapping textual data into computable
+  vectors or numbers. This allows for advanced techniques like
+  visualising job description clusters, differentiating roles, and
+  identifying similarities.</p>
+      <p>While large language models (LLMs) like ChatGPT can handle many
+  text-based tasks, text embeddings are essential for specific,
+  high-stakes applications due to lower computational costs and fewer
+  security risks.</p>
+    </sec>
+    <sec id="methodology">
+      <title>5 Methodology</title>
+    </sec>
+    <sec id="text-chunking-strategies">
+      <title>6 Text Chunking Strategies</title>
+      <p>Text chunking involves dividing large datasets into smaller,
+  manageable chunks, enabling language models to process information
+  more effectively. By providing only the most contextually relevant
+  information, chunking enhances response accuracy and relevance.</p>
+      <p>In this study, we explored and compared several text chunking
+  strategies to enhance the performance and accuracy of language models,
+  particularly in retrieval-augmented generation (RAG) applications. The
+  following chunking techniques were employed:</p>
+      <sec id="basic-chunking-methods">
+        <title>6.1 Basic Chunking Methods</title>
+        <list list-type="order">
+          <list-item>
+            <p><bold>Character Splitting</bold>: Dividing text strictly by
+        character count, which can distort words and meanings, reducing
+        response quality.</p>
+          </list-item>
+          <list-item>
+            <p><bold>Recursive Character Splitting</bold>: Using delimiters
+        like new lines or specific characters to split text recursively,
+        providing slightly more context than basic character
+        splitting.</p>
+          </list-item>
+          <list-item>
+            <p><bold>Document-Based Chunking</bold>: Splitting text based on
+        document types or structures, like Python code or Markdown,
+        aiming to retain more context compared to basic methods.</p>
+          </list-item>
+        </list>
+      </sec>
+      <sec id="advanced-chunking-techniques">
+        <title>6.2 Advanced Chunking Techniques</title>
+        <list list-type="order">
+          <list-item>
+            <label>4.</label>
+            <p><bold>Semantic Chunking</bold>: Using embeddings to analyse
+        the semantic relationship between text segments, grouping chunks
+        based on meaning and significantly improving the relevancy of
+        data chunks.</p>
+          </list-item>
+          <list-item>
+            <label>5.</label>
+            <p><bold>Agentic Chunking</bold>: With this method chunks are
+        processed using a large language model to ensure each chunk
+        stands alone with complete meaning, enhancing coherence and
+        context preservation.</p>
+          </list-item>
+          <list-item>
+            <label>6.</label>
+            <p><bold>Subdocument Chunking</bold>: The subdocument RAG
+        technique is highlighted as an advanced strategy. It summarises
+        entire documents, attaches the summaries as metadata to each
+        chunk’s embedding, and uses a hierarchical retrieval process
+        searching summaries first to improve efficiency and
+        accuracy.</p>
+          </list-item>
+        </list>
+      </sec>
+      <sec id="semantic-chunking">
+        <title>6.3 Semantic Chunking</title>
+        <p>Semantic chunking of text in large language models refers to the
+    process of breaking down long pieces of text into smaller,
+    meaningful chunks or segments based on the semantic content and
+    context. This is an important step when working with large language
+    models (LLMs) that have limited context windows and can only process
+    a certain amount of text at a time.</p>
+        <p>The key aspects of semantic chunking are:</p>
+        <list list-type="order">
+          <list-item>
+            <p>It aims to divide the text into coherent and contextually
+        relevant segments, preserving the meaning and flow of ideas
+        within each chunk.</p>
+          </list-item>
+          <list-item>
+            <p>The chunking is guided by the semantic understanding of the
+        content, rather than relying solely on predefined rules like
+        fixed chunk sizes or separators.</p>
+          </list-item>
+          <list-item>
+            <p>It leverages the language understanding capabilities of the
+        LLM itself to identify optimal break points or boundaries for
+        chunking, based on the model’s comprehension of the text’s
+        structure, topics, and semantic coherence.</p>
+          </list-item>
+          <list-item>
+            <p>The goal is to produce chunks that are more meaningful and
+        contextually relevant, compared to arbitrary chunking methods.
+        This can lead to improved performance in downstream tasks like
+        information retrieval, question answering, or text
+        summarisation.</p>
+          </list-item>
+        </list>
+        <p>The semantic chunking process typically involves:</p>
+        <list list-type="order">
+          <list-item>
+            <p>Providing the full text to the LLM</p>
+          </list-item>
+          <list-item>
+            <p>Prompting the LLM to suggest chunk boundaries based on its
+        understanding of the content</p>
+          </list-item>
+          <list-item>
+            <p>The LLM generates proposed chunk boundaries (e.g., character
+        positions, sentence indices)</p>
+          </list-item>
+          <list-item>
+            <p>The text is split into chunks based on the LLM’s
+        suggestions</p>
+          </list-item>
+        </list>
+        <p>While semantic chunking can produce more coherent and relevant
+    chunks, it also introduces additional complexity and computational
+    overhead, as it requires running the LLM on the entire text corpus
+    during the chunking process. The quality of the chunking results may
+    depend on the specific prompting and fine-tuning of the LLM for this
+    task.</p>
+      </sec>
+    </sec>
+    <sec id="agentic-chunking">
+      <title>7 Agentic Chunking</title>
+      <p>Agentic chunking is a text splitting strategy that explores the
+  possibility of using a large language model (LLM) itself to determine
+  how much and what text should be chunked together. It aims to leverage
+  the LLM’s understanding of the content to make more informed decisions
+  about where to split the text, rather than relying solely on
+  predefined rules or heuristics.</p>
+      <p>In agentic chunking, the LLM is tasked with analysing the text and
+  identifying optimal break points or boundaries for chunking. This
+  process typically involves the following steps:</p>
+      <list list-type="order">
+        <list-item>
+          <p>The LLM is provided with the full text or document.</p>
+        </list-item>
+        <list-item>
+          <p>The LLM is prompted to suggest chunk boundaries based on its
+      understanding of the content’s structure, topics, and semantic
+      coherence.</p>
+        </list-item>
+        <list-item>
+          <p>The LLM generates a set of proposed chunk boundaries, which can
+      be in the form of character positions, sentence indices, or other
+      markers.</p>
+        </list-item>
+        <list-item>
+          <p>The text is then split into chunks based on the LLM’s
+      suggestions.</p>
+        </list-item>
+      </list>
+      <p>The key advantage of agentic chunking is that it can potentially
+  produce more semantically coherent and meaningful chunks compared to
+  other methods like fixed-size or recursive chunking. By leveraging the
+  LLM’s language understanding capabilities, agentic chunking can better
+  preserve the context and meaning within each chunk, leading to
+  improved performance in downstream tasks like information retrieval or
+  question answering.</p>
+      <p>However, agentic chunking also introduces additional complexity and
+  computational overhead, as it requires running the LLM on the entire
+  text corpus during the chunking process. Additionally, the quality of
+  the chunking results may depend on the specific prompting and
+  fine-tuning of the LLM for this task.</p>
+      <sec id="subdocument-rag-technique">
+        <title>7.1 Subdocument RAG Technique</title>
+        <p>The subdocument RAG technique aims to improve the accuracy and
+    efficiency of retrieval-augmented generation (RAG) systems by using
+    document summaries to enhance the retrieval process.</p>
+        <p>Traditional chunking methods lack global context awareness, as
+    each chunk only contains a part of a document’s context. The
+    subdocument strategy addresses this by summarising entire documents
+    or large segments, and attaching these summaries as metadata to each
+    chunk’s embedding in the vector database.</p>
+        <p>When a user query is received, the system first searches through
+    the document summaries to find relevant documents related to the
+    query. It then retrieves specific chunks from these relevant
+    documents, enhancing both efficiency by reducing the number of
+    chunks searched, and accuracy by providing more contextual
+    information.</p>
+        <p>This hierarchical retrieval strategy implements a two-step
+    process: 1) Summarising and dividing documents into subdocuments,
+    and 2) Attaching these summaries to related chunks in the database.
+    For example, in a book on machine learning, chapters could be
+    treated as subdocuments, with each chapter’s summary aiding in
+    retrieving relevant chunks within that chapter.</p>
+        <p>The subdocument technique is superior to basic RAG setups without
+    summaries, as it improves response times, relevance, and overcomes
+    the lack of global context in traditional chunking methods. Tools
+    like LlamaIndex simplify implementation by automating the chunking
+    and summary attachment process.</p>
+        <p>Yes, it would be appropriate to include a section or subsection
+    describing the evaluation methods used to assess the performance and
+    effectiveness of the different text chunking strategies discussed in
+    the white paper.</p>
+        <p>Here’s how you could structure this section:</p>
+      </sec>
+    </sec>
+    <sec id="evaluation-methods">
+      <title>8 Evaluation Methods</title>
+      <p>To comprehensively evaluate the various text chunking strategies
+  and their impact on language model performance, we employed the
+  following evaluation methods:</p>
+      <sec id="chunk-coherence-and-relevance">
+        <title>8.1 Chunk Coherence and Relevance</title>
+        <list list-type="order">
+          <list-item>
+            <p><bold>Coherence Scores</bold>: We utilised topic modelling
+        algorithms to compute coherence scores for the chunks produced
+        by each chunking strategy. Higher coherence scores indicate that
+        the chunks are more semantically coherent and contextually
+        relevant.</p>
+          </list-item>
+          <list-item>
+            <p><bold>Human Evaluation</bold>: A subset of the generated
+        chunks was manually evaluated by human annotators, who assigned
+        scores based on the quality, meaning preservation, and
+        contextual relevance of the chunks.</p>
+          </list-item>
+        </list>
+      </sec>
+      <sec id="downstream-task-performance">
+        <title>8.2 Downstream Task Performance</title>
+        <p>The effectiveness of the chunking strategies was further assessed
+    by evaluating the performance of language models on downstream tasks
+    when using the generated chunks:</p>
+        <list list-type="order">
+          <list-item>
+            <p><bold>Question Answering</bold>: We measured the accuracy and
+        F1 scores of language models on question-answering tasks, using
+        chunks from different chunking methods as input.</p>
+          </list-item>
+          <list-item>
+            <p><bold>Information Retrieval</bold>: The chunks were used to
+        build retrieval systems, and we evaluated the precision, recall,
+        and mean reciprocal rank (MRR) of these systems on relevant
+        information retrieval benchmarks.</p>
+          </list-item>
+          <list-item>
+            <p><bold>Text Summarisation</bold>: We assessed the quality of
+        summaries generated by language models when provided with chunks
+        from various chunking strategies, using metrics like ROUGE
+        scores and human evaluation.</p>
+          </list-item>
+        </list>
+      </sec>
+      <sec id="efficiency-metrics">
+        <title>8.3 Efficiency Metrics</title>
+        <p>To understand the computational efficiency and scalability of the
+    chunking strategies, we measured and compared the following
+    metrics:</p>
+        <list list-type="order">
+          <list-item>
+            <p><bold>Chunking Time</bold>: The time taken by each chunking
+        strategy to process a given corpus or dataset, plotted against
+        the dataset size to assess scalability.</p>
+          </list-item>
+          <list-item>
+            <p><bold>Memory Usage</bold>: The memory footprint of each
+        chunking strategy during the chunking process, which is crucial
+        for resource-constrained environments or large-scale
+        applications.</p>
+          </list-item>
+        </list>
+        <p>By combining these evaluation methods, we aimed to provide a
+    comprehensive analysis of the strengths and weaknesses of each text
+    chunking strategy, considering both the quality of the generated
+    chunks and their impact on downstream language model performance, as
+    well as the computational efficiency and scalability of the
+    approaches.</p>
+      </sec>
+    </sec>
+    <sec id="future-work">
+      <title>9 Future Work</title>
+      <p>While the techniques discussed in this paper have shown promising
+  results in enhancing the performance and accuracy of language models,
+  there are several areas that warrant further exploration and
+  research:</p>
+      <list list-type="order">
+        <list-item>
+          <p><bold>Multimodal Embeddings</bold>: Extending text embeddings
+      to incorporate multimodal data, such as images, videos, and audio,
+      could unlock new applications and improve the contextual
+      understanding of language models.</p>
+        </list-item>
+        <list-item>
+          <p><bold>Unsupervised Chunking</bold>: Developing unsupervised
+      methods for text chunking that can automatically identify optimal
+      chunk boundaries without relying on labeled data or human
+      intervention could lead to more scalable and efficient
+      solutions.</p>
+        </list-item>
+        <list-item>
+          <p><bold>Adaptive Chunking</bold>: Exploring adaptive chunking
+      strategies that can dynamically adjust the chunk size and
+      granularity based on the complexity of the content or the specific
+      task at hand could further improve the trade-off between
+      computational efficiency and contextual relevance.</p>
+        </list-item>
+        <list-item>
+          <p><bold>Incremental Knowledge Base Updates</bold>: Investigating
+      techniques for seamlessly integrating new information into
+      existing knowledge bases without the need for complete retraining
+      or rebuilding could enhance the adaptability and scalability of
+      retrieval-augmented generation systems.</p>
+        </list-item>
+        <list-item>
+          <p><bold>Explainable Chunking and Retrieval</bold>: Developing
+      methods to provide interpretable explanations for the chunking and
+      retrieval decisions made by language models could increase
+      transparency and trust in these systems, particularly in
+      high-stakes applications.</p>
+        </list-item>
+        <list-item>
+          <p><bold>Integration with Knowledge Graphs</bold>: Investigating
+      the integration of structured knowledge graphs with
+      retrieval-augmented generation systems could unlock new
+      possibilities for leveraging structured data and enhancing the
+      contextual understanding of language models. Techniques for
+      seamlessly incorporating knowledge graph information into the
+      retrieval and generation processes could be explored.</p>
+        </list-item>
+      </list>
+    </sec>
+    <sec id="conclusion">
+      <title>10 Conclusion</title>
+      <p>The integration of advanced text chunking strategies and text
+  embeddings has proven to be a powerful approach for enhancing the
+  performance and accuracy of language models, particularly in
+  retrieval-augmented generation applications. By effectively managing
+  and processing large volumes of textual data, these techniques enable
+  language models to provide more relevant and contextually appropriate
+  responses.</p>
+      <p>The subdocument RAG technique, which leverages document summaries
+  to improve retrieval efficiency and contextual relevance, has emerged
+  as a promising solution for overcoming the limitations of traditional
+  chunking methods. By combining advanced chunking techniques with text
+  embeddings and the RAG framework, language models can better leverage
+  dynamic, domain-specific knowledge bases, leading to more accurate and
+  reliable responses.</p>
+      <p>As natural language processing continues to evolve, further
+  research and development in areas such as multimodal embeddings,
+  unsupervised chunking, adaptive chunking, incremental knowledge base
+  updates, and explainable chunking and retrieval will be crucial for
+  unlocking the full potential of these techniques and addressing the
+  ever-increasing complexity of textual data.</p>
+    </sec>
+  </body>
+  <back>
+</back>
+</article>
