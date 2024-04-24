@@ -6,7 +6,7 @@ and Interchange DTD v1.2 20190208//EN" "JATS-archivearticle1.dtd">
     <journal-meta>
       <journal-id/>
       <journal-title-group>
-        <journal-title>Earth and Space Science</journal-title>
+        <journal-title>BARG Curtin University</journal-title>
       </journal-title-group>
       <issn/>
       <publisher>
@@ -20,12 +20,18 @@ Strategies</article-title>
       </title-group>
       <contrib-group>
         <contrib contrib-type="author" corresp="yes">
+          <contrib-id contrib-id-type="orcid">0000-0002-0950-6396</contrib-id>
           <name>
             <surname>Borck</surname>
             <given-names>Michael</given-names>
           </name>
           <string-name>Michael Borck</string-name>
-          <role vocab="https://credit.niso.org" vocab-term="writing – original draft" vocab-term-identifier="https://credit.niso.org/contributor-roles/writing-original-draft/">writing</role>
+          <email>michael.borck@curtin.edu.au</email>
+          <role vocab="https://credit.niso.org" vocab-term="investigation" vocab-term-identifier="https://credit.niso.org/contributor-roles/investigation/">Investigation</role>
+          <role vocab="https://credit.niso.org" vocab-term="project administration" vocab-term-identifier="https://credit.niso.org/contributor-roles/project-administration/">Project
+administration</role>
+          <role vocab="https://credit.niso.org" vocab-term="software" vocab-term-identifier="https://credit.niso.org/contributor-roles/software/">Software</role>
+          <role>Visualisation</role>
           <xref ref-type="aff" rid="aff-1">a</xref>
           <xref ref-type="corresp" rid="cor-1">*</xref>
         </contrib>
@@ -36,7 +42,7 @@ Strategies</article-title>
         </institution-wrap>
       </aff>
       <author-notes>
-        <corresp id="cor-1"/>
+        <corresp id="cor-1">michael.borck@curtin.edu.au</corresp>
       </author-notes>
       <pub-date date-type="pub" publication-format="electronic" iso-8601-date="2024-04-24">
         <year>2024</year>
