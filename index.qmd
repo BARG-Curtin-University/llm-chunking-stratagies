@@ -3,7 +3,7 @@ title: "Optimising Language Models with Advanced Text Chunking Strategies"
 authors:
 author:
   - name: Michael Borck
-    orcid: 0000-0002-0760-5497
+    orcid: 0000-0002-0950-6396
     corresponding: true
     email: michael.borck@curtin.edu.au
     roles:
