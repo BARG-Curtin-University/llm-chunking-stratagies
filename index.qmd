@@ -1,5 +1,5 @@
 ---
-title: "Optimising Language Models with Advanced Text Chunking Strategies"
+title: "Enhancing Retrieval-Augmented Generation: Advanced Chunking Strategies for Language Models"
 authors:
 author:
   - name: Michael Borck
