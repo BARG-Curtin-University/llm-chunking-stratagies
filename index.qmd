@@ -3,6 +3,7 @@ title: "Enhancing Retrieval-Augmented Generation: Advanced Chunking Strategies f
 authors:
 author:
   - name: Michael Borck
+    affiliation: Business Information Systems, Curtin University, Perth Australia
     orcid: 0000-0002-0950-6396
     corresponding: true
     email: michael.borck@curtin.edu.au
@@ -11,8 +12,6 @@ author:
       - Project administration
       - Software
       - Visualisation
-    affiliations:
-      - Curtin University
 keywords:
   - Text Chunking Strategies
   - Text Embeddings 1
